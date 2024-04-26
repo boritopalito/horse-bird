@@ -17,11 +17,13 @@ import static nl.xx1.horsebird.GamePanel.TILE_SIZE;
 public abstract class GameObject {
     private BufferedImage image;
     private String name;
-    private boolean collision;
     private int worldX;
     private int worldY;
+    private Rectangle bounds = new Rectangle(0, 0, TILE_SIZE, TILE_SIZE);
 
     public abstract String getName();
+
+    public abstract boolean isCollision();
 
     public GameObject() {
         try {
@@ -43,11 +45,11 @@ public abstract class GameObject {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         GameObject that = (GameObject) object;
-        return collision == that.collision && worldX == that.worldX && worldY == that.worldY && Objects.equals(name, that.name);
+        return isCollision() == that.isCollision() && worldX == that.worldX && worldY == that.worldY && Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, collision, worldX, worldY);
+        return Objects.hash(name, isCollision(), worldX, worldY);
     }
 }

@@ -5,4 +5,9 @@ public class Chest extends GameObject {
     public String getName() {
         return "chest";
     }
+
+    @Override
+    public boolean isCollision() {
+        return false;
+    }
 }

@@ -5,4 +5,9 @@ public class Door extends GameObject {
     public String getName() {
         return "door";
     }
+
+    @Override
+    public boolean isCollision() {
+        return true;
+    }
 }

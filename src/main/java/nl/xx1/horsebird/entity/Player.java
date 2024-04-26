@@ -4,6 +4,7 @@ import lombok.Getter;
 import nl.xx1.horsebird.CollisionDetector;
 import nl.xx1.horsebird.GamePanel;
 import nl.xx1.horsebird.enums.Direction;
+import nl.xx1.horsebird.object.GameObject;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -52,7 +53,9 @@ public class Player extends Entity {
                 currentSprite = Direction.DOWN.getValue();
             }
 
-            if (CollisionDetector.checkTile(this)) {
+            GameObject object = CollisionDetector.checkObject(this);
+
+            if (CollisionDetector.checkTile(this) && object == null || (object != null && !object.isCollision())) {
                 switch (getDirection()) {
                     case UP:
                         setWorldY(getWorldY() - getSpeed());

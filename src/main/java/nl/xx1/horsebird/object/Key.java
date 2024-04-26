@@ -10,4 +10,9 @@ public class Key extends GameObject{
     public String getName() {
         return "key";
     }
+
+    @Override
+    public boolean isCollision() {
+        return false;
+    }
 }
