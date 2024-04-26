@@ -3,6 +3,9 @@ package nl.xx1.horsebird;
 import lombok.extern.java.Log;
 import nl.xx1.horsebird.entity.Player;
 import nl.xx1.horsebird.input.KeyHandler;
+import nl.xx1.horsebird.object.GameObject;
+import nl.xx1.horsebird.object.Key;
+import nl.xx1.horsebird.object.ObjectManager;
 import nl.xx1.horsebird.tile.TileManager;
 
 import javax.swing.*;
@@ -34,6 +37,11 @@ public class GamePanel extends JPanel implements Runnable {
         setDoubleBuffered(true);
         setVisible(true);
         addKeyListener(keyHandler);
+
+        GameObject gameObject = new Key();
+        gameObject.setWorldX(33 * TILE_SIZE);
+        gameObject.setWorldY(13 * TILE_SIZE);
+        ObjectManager.addObject(gameObject);
     }
 
     public void startGameThread() {
@@ -48,6 +56,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         tileManager.graphics(g2d);
         localPlayer.draw(g2d);
+        ObjectManager.draw(g2d);
     }
 
     public void update() {
