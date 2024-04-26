@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     Thread gameThread;
     public static KeyHandler keyHandler = new KeyHandler();
-    Player localPlayer = new Player(100, 100);
+    public static Player localPlayer = new Player(TILE_SIZE * 23, TILE_SIZE * 21);
     TileManager tileManager = new TileManager();
 
     public GamePanel() {

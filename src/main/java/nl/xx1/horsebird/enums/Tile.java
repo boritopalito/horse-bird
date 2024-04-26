@@ -4,6 +4,9 @@ import lombok.Getter;
 
 @Getter
 public enum Tile {
+    TREE(5, "tree.png", true),
+    SAND(4, "sand.png", false),
+    EARTH(3, "earth.png", false),
     GRASS(2,"grass.png", false),
     WATER(1, "water.png", true),
     WALL(0,"wall.png", true);

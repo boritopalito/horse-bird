@@ -1,5 +1,8 @@
 package nl.xx1.horsebird.entity;
 
+import lombok.Getter;
+import nl.xx1.horsebird.CollisionDetector;
+import nl.xx1.horsebird.GamePanel;
 import nl.xx1.horsebird.enums.Direction;
 
 import javax.imageio.ImageIO;
@@ -11,7 +14,11 @@ import java.util.Objects;
 import static nl.xx1.horsebird.GamePanel.TILE_SIZE;
 import static nl.xx1.horsebird.GamePanel.keyHandler;
 
+@Getter
 public class Player extends Entity {
+
+    private final int screenX;
+    private final int screenY;
 
     private final BufferedImage[] sprites;
     private int currentSprite = 0;
@@ -21,25 +28,45 @@ public class Player extends Entity {
     public Player(int x, int y) {
         super(x, y);
         sprites = setSprites();
+        screenX = GamePanel.WIDTH / 2 - (TILE_SIZE / 2);
+        screenY = GamePanel.HEIGHT / 2 - (TILE_SIZE / 2);
+        setBounds(new Rectangle(8, 16, TILE_SIZE - 16, TILE_SIZE - 16));
     }
 
     public void update() {
         if (keyHandler.isLeft() || keyHandler.isRight() || keyHandler.isUp() || keyHandler.isDown()) {
             if (keyHandler.isLeft()) {
-                move(-getSpeed(), 0);
+                setDirection(Direction.LEFT);
                 currentSprite = Direction.LEFT.getValue();
             }
             if (keyHandler.isRight()) {
-                move(getSpeed(), 0);
+                setDirection(Direction.RIGHT);
                 currentSprite = Direction.RIGHT.getValue();
             }
             if (keyHandler.isUp()) {
-                move(0, -getSpeed());
+                setDirection(Direction.UP);
                 currentSprite = Direction.UP.getValue();
             }
             if (keyHandler.isDown()) {
-                move(0, getSpeed());
+                setDirection(Direction.DOWN);
                 currentSprite = Direction.DOWN.getValue();
+            }
+
+            if (CollisionDetector.checkTile(this)) {
+                switch (getDirection()) {
+                    case UP:
+                        setWorldY(getWorldY() - getSpeed());
+                        break;
+                    case DOWN:
+                        setWorldY(getWorldY() + getSpeed());
+                        break;
+                    case LEFT:
+                        setWorldX(getWorldX() - getSpeed());
+                        break;
+                    case RIGHT:
+                        setWorldX(getWorldX() + getSpeed());
+                        break;
+                }
             }
 
 
@@ -74,6 +101,6 @@ public class Player extends Entity {
 
     @Override
     public void draw(Graphics2D g2d) {
-        g2d.drawImage(sprites[Math.max(currentSprite, 0)], getX(), getY(), TILE_SIZE, TILE_SIZE, null);
+        g2d.drawImage(sprites[Math.max(currentSprite, 0)], screenX, screenY, TILE_SIZE, TILE_SIZE, null);
     }
 }
