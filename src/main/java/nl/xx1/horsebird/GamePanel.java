@@ -3,9 +3,7 @@ package nl.xx1.horsebird;
 import lombok.extern.java.Log;
 import nl.xx1.horsebird.entity.Player;
 import nl.xx1.horsebird.input.KeyHandler;
-import nl.xx1.horsebird.object.GameObject;
-import nl.xx1.horsebird.object.Key;
-import nl.xx1.horsebird.object.ObjectManager;
+import nl.xx1.horsebird.object.*;
 import nl.xx1.horsebird.tile.TileManager;
 
 import javax.swing.*;
@@ -38,10 +36,21 @@ public class GamePanel extends JPanel implements Runnable {
         setVisible(true);
         addKeyListener(keyHandler);
 
-        GameObject gameObject = new Key();
-        gameObject.setWorldX(33 * TILE_SIZE);
-        gameObject.setWorldY(13 * TILE_SIZE);
-        ObjectManager.addObject(gameObject);
+        GameObject key = new Key();
+        key.setWorldX(33 * TILE_SIZE);
+        key.setWorldY(17 * TILE_SIZE);
+        ObjectManager.addObject(key);
+
+        GameObject door = new Door();
+        door.setWorldX(33 * TILE_SIZE);
+        door.setWorldY(15 * TILE_SIZE);
+        ObjectManager.addObject(door);
+
+        GameObject chest = new Chest();
+        chest.setWorldX(33 * TILE_SIZE);
+        chest.setWorldY(12 * TILE_SIZE);
+        ObjectManager.addObject(chest);
+
     }
 
     public void startGameThread() {

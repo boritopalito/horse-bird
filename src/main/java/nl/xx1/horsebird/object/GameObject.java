@@ -37,4 +37,17 @@ public abstract class GameObject {
         int screenY = worldY - GamePanel.localPlayer.getWorldY() + GamePanel.localPlayer.getScreenY();
         g2d.drawImage(image, screenX, screenY, TILE_SIZE, TILE_SIZE, null);
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        GameObject that = (GameObject) object;
+        return collision == that.collision && worldX == that.worldX && worldY == that.worldY && Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, collision, worldX, worldY);
+    }
 }
