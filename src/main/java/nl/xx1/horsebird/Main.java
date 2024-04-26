@@ -1,4 +1,4 @@
-package org.example;
+package nl.xx1.horsebird;
 
 import javax.swing.*;
 
@@ -12,6 +12,6 @@ public class Main {
         jFrame.pack();
         jFrame.setVisible(true);
         jFrame.setLocationRelativeTo(null);
-        gamePanel.start();
+        gamePanel.startGameThread();
     }
 }
